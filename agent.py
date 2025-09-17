@@ -29,7 +29,7 @@ logger = logging.getLogger("basic-agent")
 load_dotenv()
 
 
-class MyAgent(Agent):
+class CartesiaAgent(Agent):
     def __init__(self) -> None:
         super().__init__(
             instructions="Your name is Kelly. You would interact with users via voice."
@@ -86,7 +86,8 @@ async def entrypoint(ctx: JobContext):
     ctx.log_context_fields = {
         "room": ctx.room.name,
     }
-
+    # For more information, check out the Cartesia Plugin for LiveKit:
+    # https://docs.livekit.io/agents/integrations/tts/cartesia/
     session = AgentSession(
         vad=ctx.proc.userdata["vad"],
         # any combination of STT, LLM, TTS, or realtime API can be used
@@ -118,7 +119,7 @@ async def entrypoint(ctx: JobContext):
     ctx.add_shutdown_callback(log_usage)
 
     await session.start(
-        agent=MyAgent(),
+        agent=CartesiaAgent(),
         room=ctx.room,
         room_input_options=RoomInputOptions(
             # uncomment to enable Krisp BVC noise cancellation
