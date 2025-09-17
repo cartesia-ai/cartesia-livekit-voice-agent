@@ -54,3 +54,5 @@ python3 agent.py dev
 ```
 
 Then use a frontend application to communicate with the agent. Some examples of frontends are available in [livekit-examples](https://github.com/livekit-examples/). You can also create your own frontend following one of the [client quickstarts](https://docs.livekit.io/realtime/quickstarts/), or test instantly against one of LiveKit's hosted [Sandbox](https://cloud.livekit.io/projects/p_/sandbox) frontends.
+
+For more information, you can also checkout the [Cartesia Plugin for LiveKit](https://docs.livekit.io/agents/integrations/tts/cartesia/)

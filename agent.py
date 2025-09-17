@@ -92,15 +92,14 @@ async def entrypoint(ctx: JobContext):
         # any combination of STT, LLM, TTS, or realtime API can be used
         llm=openai.LLM(model="gpt-4o-mini"),
         stt=cartesia.STT(),
-        tts=cartesia.TTS(),
+        tts=cartesia.TTS(model="sonic-2"),  # specify the model and voice params here
         # allow the LLM to generate a response while waiting for the end of turn
         preemptive_generation=True,
-        # sometimes background noise could interrupt the agent session, these are considered false positive interruptions
+        # sometimes background noise can interrupt the agent session, these are considered false positive interruptions
         # when it's detected, you may resume the agent's speech
         resume_false_interruption=True,
         false_interruption_timeout=1.0,
         min_interruption_duration=0.2,  # with false interruption resume, interruption can be more sensitive
-        # use LiveKit's turn detection model
     )
 
     # log metrics as they are emitted, and total usage after session is over
