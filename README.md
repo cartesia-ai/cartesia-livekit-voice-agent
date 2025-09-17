@@ -34,7 +34,6 @@ Set up the environment by copying `.env.example` to `.env.local` and filling in 
 - `LIVEKIT_API_SECRET`
 - `OPENAI_API_KEY`
 - `CARTESIA_API_KEY`
-- `DEEPGRAM_API_KEY`
 
 You can also do this automatically using the LiveKit CLI:
 
@@ -42,10 +41,16 @@ You can also do this automatically using the LiveKit CLI:
 lk app env
 ```
 
-Run the agent:
+The easiest and quickest way to chat with the agent is via the console:
+
+```console
+python3 agent.py console
+```
+
+You can also run it with a frontend. For that, run the agent:
 
 ```console
 python3 agent.py dev
 ```
 
-This agent requires a frontend application to communicate with. You can use one of our example frontends in [livekit-examples](https://github.com/livekit-examples/), create your own following one of our [client quickstarts](https://docs.livekit.io/realtime/quickstarts/), or test instantly against one of our hosted [Sandbox](https://cloud.livekit.io/projects/p_/sandbox) frontends.
+Then use a frontend application to communicate with the agent. Some examples of frontends are available in [livekit-examples](https://github.com/livekit-examples/). You can also create your own frontend following one of the [client quickstarts](https://docs.livekit.io/realtime/quickstarts/), or test instantly against one of LiveKit's hosted [Sandbox](https://cloud.livekit.io/projects/p_/sandbox) frontends.
