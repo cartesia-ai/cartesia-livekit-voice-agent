@@ -29,7 +29,7 @@ logger = logging.getLogger("basic-agent")
 load_dotenv()
 
 
-class MyAgent(Agent):
+class CartesiaAgent(Agent):
     def __init__(self) -> None:
         super().__init__(
             instructions="Your name is Kelly. You would interact with users via voice."
@@ -86,21 +86,21 @@ async def entrypoint(ctx: JobContext):
     ctx.log_context_fields = {
         "room": ctx.room.name,
     }
-
+    # For more information, check out the Cartesia Plugin for LiveKit:
+    # https://docs.livekit.io/agents/integrations/tts/cartesia/
     session = AgentSession(
         vad=ctx.proc.userdata["vad"],
         # any combination of STT, LLM, TTS, or realtime API can be used
         llm=openai.LLM(model="gpt-4o-mini"),
         stt=cartesia.STT(),
-        tts=cartesia.TTS(),
+        tts=cartesia.TTS(model="sonic-2"),  # specify the model and voice params here
         # allow the LLM to generate a response while waiting for the end of turn
         preemptive_generation=True,
-        # sometimes background noise could interrupt the agent session, these are considered false positive interruptions
+        # sometimes background noise can interrupt the agent session, these are considered false positive interruptions
         # when it's detected, you may resume the agent's speech
         resume_false_interruption=True,
         false_interruption_timeout=1.0,
         min_interruption_duration=0.2,  # with false interruption resume, interruption can be more sensitive
-        # use LiveKit's turn detection model
     )
 
     # log metrics as they are emitted, and total usage after session is over
@@ -119,7 +119,7 @@ async def entrypoint(ctx: JobContext):
     ctx.add_shutdown_callback(log_usage)
 
     await session.start(
-        agent=MyAgent(),
+        agent=CartesiaAgent(),
         room=ctx.room,
         room_input_options=RoomInputOptions(
             # uncomment to enable Krisp BVC noise cancellation
