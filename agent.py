@@ -93,7 +93,7 @@ async def entrypoint(ctx: JobContext):
         # any combination of STT, LLM, TTS, or realtime API can be used
         llm=openai.LLM(model="gpt-4o-mini"),
         stt=cartesia.STT(),
-        tts=cartesia.TTS(model="sonic-2"),  # specify the model and voice params here
+        tts=cartesia.TTS(model="sonic-3"),  # specify the model and voice params here
         # allow the LLM to generate a response while waiting for the end of turn
         preemptive_generation=True,
         # sometimes background noise can interrupt the agent session, these are considered false positive interruptions
